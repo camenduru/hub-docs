@@ -14,6 +14,7 @@ export enum ModelLibrary {
 	"flair"                  = "Flair",
 	"keras"                  = "Keras",
 	"nemo"                   = "NeMo",
+	"openclip"               = "OpenCLIP",
 	"paddlenlp"              = "PaddleNLP",
 	"pyannote-audio"         = "pyannote.audio",
 	"sample-factory"         = "Sample Factory",
@@ -149,6 +150,12 @@ const keras = (model: ModelData) =>
 
 model = from_pretrained_keras("${model.id}")
 `;
+
+const openclip = (model: ModelData) =>
+	`import open_clip
+
+model, preprocess_train, preprocess_val = open_clip.create_model_and_transforms('hf-hub:${model.id}')`;
+
 
 const paddlenlp = (model: ModelData) => {
 	return [
@@ -445,6 +452,12 @@ export const MODEL_LIBRARIES_UI_ELEMENTS: { [key in keyof typeof ModelLibrary]?:
 		repoName: "NeMo",
 		repoUrl:  "https://github.com/NVIDIA/NeMo",
 		snippet:  nemo,
+	},
+	"openclip": {
+		btnLabel: "OpenCLIP",
+		repoName: "OpenCLIP",
+		repoUrl:  "https://github.com/mlfoundations/open_clip",
+		snippet:  openclip,
 	},
 	"paddlenlp": {
 		btnLabel: "paddlenlp",
